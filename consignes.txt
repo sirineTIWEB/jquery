@@ -1,0 +1,19 @@
+Quand on clique sur le bouton "Tester les sélecteurs", effectuer les actions suivantes :
+    Ajouter la classe highlight à tous les paragraphes avec la classe intro
+    Ajouter la classe special au premier élément <li> de la liste
+    Changer le texte du titre principal (#titre-principal) en "jQuery c'est magique !"
+    Afficher dans la console le nombre total de paragraphes
+    Cacher tous les éléments <li> pairs (2, 4) de la liste
+Bonus : Ajouter un bouton "Réinitialiser" qui annule toutes les modifications
+
+
+
+
+Quand on clique sur "Ajouter", créer un nouvel élément de tâche avec :
+    Le texte de la tâche
+    Un bouton "Supprimer"
+Permettre d'ajouter une tâche en appuyant sur la touche "Entrée"
+Quand on clique sur une tâche, la marquer comme complétée (ajouter la classe completed)
+Quand on clique sur "Supprimer", retirer la tâche de la liste
+Vider le champ input après l'ajout d'une tâche
+Bonus : Ajouter un compteur de tâches restantes

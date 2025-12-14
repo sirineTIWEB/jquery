@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Exercice 1 - Sélecteurs jQuery</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        #todo-input {
+            width: 70%;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        #add-btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .todo-item {
+            padding: 10px;
+            margin: 5px 0;
+            background: #f0f0f0;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .todo-item.completed {
+            text-decoration: line-through;
+            opacity: 0.6;
+        }
+
+        .delete-btn {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+        
+        .highlight {
+            background-color: yellow; padding: 5px;
+        }
+        .special {
+            color: red; font-weight: bold;
+        }
+
+         .gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .gallery img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: transform 0.3s;
+        }
+        .gallery img:hover {
+            transform: scale(1.05);
+        }
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
+        }
+        .lightbox img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 90%;
+            max-height: 90%;
+        }
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            color: white;
+            font-size: 40px;
+            cursor: pointer;
+        }
+    
+    </style>
+</head>
+
+<body>
+    <h1>Ma Todo List</h1>
+
+    <div>
+        <input type="text" id="todo-input" placeholder="Nouvelle tâche...">
+        <button id="add-btn">Ajouter</button>
+    </div>
+
+    <div id="todo-list">
+        <!-- Les tâches seront ajoutées ici -->
+    </div>
+
+    <h1 style="text-align: center;">Ma Galerie Photo</h1>
+
+    <div class="gallery">
+        <img src="https://picsum.photos/400/300?random=1" alt="Photo 1">
+        <img src="https://picsum.photos/400/300?random=2" alt="Photo 2">
+        <img src="https://picsum.photos/400/300?random=3" alt="Photo 3">
+        <img src="https://picsum.photos/400/300?random=4" alt="Photo 4">
+        <img src="https://picsum.photos/400/300?random=5" alt="Photo 5">
+        <img src="https://picsum.photos/400/300?random=6" alt="Photo 6">
+    </div>
+
+    <div class="lightbox">
+        <span class="close-btn">&times;</span>
+        <img src="" alt="">
+    </div>
+
+    <h1 id="titre-principal">Bienvenue sur jQuery</h1>
+
+    <div class="container">
+        <p class="intro">Ceci est le premier paragraphe.</p>
+        <p>Ceci est le deuxième paragraphe.</p>
+        <p class="intro">Ceci est le troisième paragraphe avec la classe intro.</p>
+        <p>Ceci est le quatrième paragraphe.</p>
+    </div>
+
+    <ul id="liste">
+        <li>Élément 1</li>
+        <li>Élément 2</li>
+        <li>Élément 3</li>
+        <li>Élément 4</li>
+        <li>Élément 5</li>
+    </ul>
+
+    <button id="btn-test">Tester les sélecteurs</button>
+    <button id="btn-reset">Réinitialiser les sélecteurs</button>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            console.log('Le DOM est prêt !');
+
+            $('#gallery img').click(function(){
+                $('.lightbox').css('display', 'block');
+            })
+
+            $('#todo-input').keydown(function(e) {
+                if (e.key === 'Enter') { // ou e.which === 13
+                    $('#add-btn').click(); // déclenche le même code que le bouton
+                }
+            });
+
+            var count = $('<h1>').text('0 tâche');
+
+            $("#add-btn").click(function(){
+             
+                var newctn = $('#todo-input').val();
+
+                if(newctn === ""){
+                    return;
+                }
+
+                var newtask = $('<p>');
+
+                var supp = $('<button>').text('supprimer la tâche');
+                    
+                newtask.text(newctn).addClass('completed');
+
+                $('#todo-list').append(newtask)
+
+                newtask.append(supp)
+
+                supp.click(function(){
+                    newtask.remove();
+                    count.text($('#todo-list p').length)
+                })
+
+                $('#todo-input').val('');
+
+                count.text($('#todo-list p').length + 'tâche(s) restante(s)')
+                $('#todo-list').append(count)
+
+            })
+            
+            
+
+            $('#btn-test').click(function () {
+                $('.intro').addClass('highlight');
+
+                $('#liste li:first').addClass('special');
+
+                $('#titre-principal').text('jQuery c\'est magique !');
+
+                console.log($('p').length)
+
+                $('#liste li:odd').hide();
+            }
+            )
+
+            $('#btn-reset').click(function () {
+                $('.intro').removeClass('highlight');
+
+                $('#liste li:first').removeClass('special');
+
+                $('#titre-principal').text('Bienvenue sur jQuery');
+
+                console.log($('p').length)
+
+                $('#liste li:odd').show();
+            }
+            )
+
+
+        });
+    </script>
+</body>
+
+</html>
