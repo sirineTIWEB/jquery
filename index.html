@@ -225,9 +225,18 @@
                 $('#liste li:odd').show();
             }
             )
-
-
         });
+
+        $('.gallery img').click(function() {
+            var src = $(this).attr('src');
+            $('.lightbox img').attr('src', src);
+            $('.lightbox').fadeIn();
+        });
+
+        $('.lightbox .close-btn').click(function() {
+            $('.lightbox').fadeOut();
+        });
+
     </script>
 </body>
 
