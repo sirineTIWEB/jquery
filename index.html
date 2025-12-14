@@ -112,25 +112,33 @@
             max-width: 600px;
             margin: 50px auto;
         }
+
         .accordion-item {
             margin-bottom: 10px;
             border: 1px solid #ddd;
             border-radius: 5px;
             overflow: hidden;
         }
+
         .accordion-header {
             background: #3498db;
             color: white;
             padding: 15px;
             cursor: pointer;
             user-select: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
+
         .accordion-header:hover {
             background: #2980b9;
         }
+
         .accordion-header.active {
             background: #27ae60;
         }
+
         .accordion-content {
             display: none;
             padding: 15px;
@@ -189,23 +197,33 @@
 
     <div class="accordion">
         <div class="accordion-item">
-            <div class="accordion-header">Section 1 : JavaScript</div>
+            <div class="accordion-header">
+                <span class="header-text">Section 1 : JavaScript</span>
+                <span class="icon">▼</span>
+            </div>
             <div class="accordion-content">
                 <p>JavaScript est un langage de programmation essentiel pour le développement web moderne.</p>
             </div>
         </div>
 
         <div class="accordion-item">
-            <div class="accordion-header">Section 2 : jQuery</div>
+            <div class="accordion-header">
+                <span class="header-text">Section 2 : jQuery</span>
+                <span class="icon">▼</span>
+            </div>
             <div class="accordion-content">
                 <p>jQuery simplifie la manipulation du DOM et les interactions avec les éléments HTML.</p>
             </div>
         </div>
 
         <div class="accordion-item">
-            <div class="accordion-header">Section 3 : GSAP</div>
+            <div class="accordion-header">
+                <span class="header-text">Section 3 : GSAP</span>
+                <span class="icon">▼</span>
+            </div>
             <div class="accordion-content">
-                <p>GSAP est la bibliothèque d'animation la plus puissante pour créer des animations web professionnelles.</p>
+                <p>GSAP est la bibliothèque d'animation la plus puissante pour créer des animations web
+                    professionnelles.</p>
             </div>
         </div>
     </div>
@@ -314,6 +332,43 @@
                 $('.lightbox').fadeOut();
             }
         });
+
+
+        // recup des header des accordeons 
+
+        $('.accordion-header').click(function () {
+            // toggle de la classe active sur le header cliqué
+            $(this).toggleClass('active');
+            // toggle de l'affichage du contenu associé
+            $(this).next('.accordion-content').slideToggle();
+        });
+
+        // qu'un seul en state active
+
+        $('.accordion-header').click(function () {
+            // fermer les autres contenus
+            $('.accordion-header').not(this).removeClass('active');
+            $('.accordion-content').not($(this).next()).slideUp();
+        });
+
+        // Bonus : Ajouter une icône (▼/▲) qui change selon l'état
+
+        // creation de l'icone et la raccoorder au state active sinon changer d'icone
+
+        $('.accordion-header').click(function () {
+            var icon = $(this).find('.icon');
+            if ($(this).hasClass('active')) {
+                icon.text(' ▲');
+            } else {
+                icon.text(' ▼');
+            }
+            // reset des autres icones
+            $('.accordion-header').not(this).find('.icon').text(' ▼');
+        });
+
+
+
+
 
     </script>
 </body>
